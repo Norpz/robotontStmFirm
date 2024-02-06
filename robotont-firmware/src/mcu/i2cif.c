@@ -61,6 +61,22 @@ void i2cif_memoryRead(I2C_HandleTypeDef *i2c_handler, uint16_t slave_addr, uint1
     }
 }
 
+//HAL_I2C_Master_Receive
+
+void i2cif_masterRead(I2C_HandleTypeDef *i2c_handler, uint16_t slave_addr, uint8_t *ptr_data, uint16_t data_size, uint32_t timeout_ms)
+{
+    // Start I2C communication
+    if (HAL_I2C_Master_Receive(i2c_handler, slave_addr, ptr_data, data_size, timeout_ms) != HAL_OK)
+    {
+        // Handle error (optional)
+        if (error_callback != NULL)
+        {
+            error_callback(i2c_handler);
+        }
+    }
+}
+
+
 /*======================================================================================================================
  * I2C ISR handlers. Naming comes from CUBE HAL
 ======================================================================================================================*/
